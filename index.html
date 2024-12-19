@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .full {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            transition: background 1s ease-in-out;
+        }
+
+        .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .text {
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 1.5s ease-in-out, transform 1s ease-in-out;
+        }
+
+        .active .image {
+            opacity: 1;
+        }
+
+        .active .text {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .inactive .image {
+            opacity: 0;
+        }
+
+        .inactive .text {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 10px #ffe6f2;
+            }
+            50% {
+                box-shadow: 0 0 20px #ffe6f2;
+            }
+            100% {
+                box-shadow: 0 0 10px #ffe6f2;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="full scroll-fade" id="section1">
+        <div class="image" style="background-image: url('https://picsum.photos/2000/1000');"></div>
+        <div class="text">
+            <h1 class="text-4xl font-bold">Wedding Invitation</h1>
+            <p class="text-xl mt-2">Join us for the wedding celebration of <b>Shikha</b> & <b>Vikas</b>!</p>
+        </div>
+    </div>
+
+    <div class="full scroll-fade" id="section2">
+        <div class="image" style="background-image: url('https://picsum.photos/2001/1001');"></div>
+        <div class="text">
+            <h2 class="text-3xl font-bold">Event Details</h2>
+            <p class="text-lg mt-2">Date: [Date]</p>
+            <p class="text-lg mt-2">Time: [Time]</p>
+            <p class="text-lg mt-2">Location: [Location]</p>
+        </div>
+    </div>
+
+    <div class="full scroll-fade" id="section3">
+        <div class="image" style="background-image: url('https://picsum.photos/2002/1002');"></div>
+        <div class="text">
+            <h2 class="text-3xl font-bold">Address</h2>
+            <p class="text-lg mt-2">Please </p>
+                        <p class="text-lg mt-2">Contact: [Contact Information]</p>
+        </div>
+    </div>
+
+    <footer class="text-center p-4" style="background-color: #1a1d23; color: #ffe6f2; animation: glow 2s infinite;">
+        <p>Created by Rishabh Sen</p>
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('.full');
+
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            sections.forEach((section, index) => {
+                if (currentScrollY >= section.offsetTop - window.innerHeight / 2) {
+                    section.classList.add('active');
+                    section.classList.remove('inactive');
+                } else {
+                    section.classList.add('inactive');
+                    section.classList.remove('active');
+                }
+            });
+
+            lastScrollY = currentScrollY;
+        });
+
+        // Add a delay to the image and text loading
+        sections.forEach((section, index) => {
+            const image = section.querySelector('.image');
+            const text = section.querySelector('.text');
+
+            image.style.transitionDelay = '0.5s';
+            text.style.transitionDelay = '1s';
+        });
+    </script>
+</body>
+</html>
